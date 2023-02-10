@@ -113,7 +113,8 @@ export default function HomePage() {
         </div>
         <div className="column-2">
           <div className="row-1">
-            <div className="ui action input">
+            <div className="ui action input input-border">
+              
               <input
                 type="text"
                 placeholder="Search by book or author name"
@@ -127,6 +128,7 @@ export default function HomePage() {
               >
                 <i className="search icon"></i>
               </button>
+              
             </div>
           </div>
           {active ? (
