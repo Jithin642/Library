@@ -6,7 +6,7 @@ import LandingPage from "@/components/LandingPage";
 import Loader from "@/components/Loader";
 
 export default function HomePage() {
-  const data = ["JavaScript", "HarryPotter", "philosophy", "Maths", "Science"];
+  const data = ["JavaScript", "HarryPotter", "Philosophy", "Maths", "Science"];
   const [titleArr, setTitleArr] = useState([]);
   const [firstPublishYear, setFirstPublishYeear] = useState([]);
   const [author, setAuthor] = useState([]);
