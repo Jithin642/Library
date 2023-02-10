@@ -3,14 +3,13 @@ import ReactDOM from "react-dom";
 import ReactPaginate from "react-paginate";
 
 function Items({ currentItems1, currentItems2, currentItems3 }) {
-  console.log(currentItems1);
+  
   let final_Arr=[];
-  // final_Arr.push({title:"Book Title", publish_year:"First Publish Year", author:"Author name"})
   for(let i=0;i<currentItems1.length;i++){
     final_Arr.push({title:currentItems1[i],publish_year:currentItems2[i], author:currentItems3[i]})
   }
   return (
-    <>
+    <div id="display">
       <table className="ui striped table table-padding">
         <thead>
           <tr>
@@ -31,13 +30,13 @@ function Items({ currentItems1, currentItems2, currentItems3 }) {
           }
         </tbody>
       </table>
-    </>
+    </div>
   );
 }
 
 export default function PaginatedItems({ itemsPerPage, items1,items2,items3 }) {
   const [itemOffset, setItemOffset] = useState(0);
-
+  // if(items1!==items1) setItemOffset(0)
   const endOffset = itemOffset + itemsPerPage;
   console.log(`Loading items from ${itemOffset} to ${endOffset}`);
   const currentItems1 = items1.slice(itemOffset, endOffset);
@@ -76,7 +75,6 @@ export default function PaginatedItems({ itemsPerPage, items1,items2,items3 }) {
         containerClassName="pagination"
         activeClassName="active"
         renderOnZeroPageCount={null}
-       
       />
       </div>
     </div>

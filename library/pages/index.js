@@ -1,19 +1,23 @@
 import Link from "next/link";
-import React from "react";
+import React, { use } from "react";
 import { useState } from "react";
 import PaginatedItems from "@/components/pagination";
+import LandingPage from "@/components/LandingPage";
+import Loader from "@/components/Loader";
 
 export default function HomePage() {
   const data = ["JavaScript", "HarryPotter", "philosophy", "Maths", "Science"];
   const [titleArr, setTitleArr] = useState([]);
   const [firstPublishYear, setFirstPublishYeear] = useState([]);
   const [author, setAuthor] = useState([]);
-
   const [subject, setSubject] = useState("");
-
   const [updated, setUpdated] = useState("");
+  const [active, setActive] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleClick = async () => {
+    setActive(true);
+    setIsLoading(true);
     try {
       const response = await fetch(
         "https://openlibrary.org/search.json?author=" + updated + "&sort=new",
@@ -34,12 +38,16 @@ export default function HomePage() {
         }
       );
 
-      if (!response.ok || !response2.ok) {
+      if (!response.ok ) {
         throw new Error(`Error! status: ${response.status}`);
+      }
+      if ( !response2.ok) {
+        throw new Error(`Error! status: ${response2.status}`);
       }
 
       const result = await response.json();
       const result2 = await response2.json();
+      setIsLoading(false);
       const res = result.docs.concat(result2.docs);
       let title_arr = [];
       let first_publish_year = [];
@@ -58,12 +66,13 @@ export default function HomePage() {
       setAuthor(author);
     } catch (err) {
       console.log(err.message);
+      setIsLoading(false);
     }
   };
 
   return (
-    <>
-      <div className="header">welcome to library</div>
+    <div id="index">
+      <div className="header">What are you looking for at the library</div>
       <div className="home">
         <div className="column-1">
           <div className="sidebar">
@@ -107,25 +116,41 @@ export default function HomePage() {
             <div className="ui action input">
               <input
                 type="text"
-                placeholder="Search for book or author name"
+                placeholder="Search by book or author name"
                 onChange={(e) => setUpdated(e.target.value)}
                 className="input-box"
               />
-              <button className="ui icon button" onClick={handleClick}>
+              <button
+                className="ui icon button"
+                onClick={handleClick}
+                disabled={isLoading}
+              >
                 <i className="search icon"></i>
               </button>
             </div>
           </div>
-          <div className="row-2">
-            <PaginatedItems
-              itemsPerPage={10}
-              items1={titleArr}
-              items2={firstPublishYear}
-              items3={author}
-            />
-          </div>
+          {active ? (
+            <div>
+              {isLoading ? (
+                <Loader />
+              ) : (
+                <div className="row-2">
+                  <PaginatedItems
+                    itemsPerPage={10}
+                    items1={titleArr}
+                    items2={firstPublishYear}
+                    items3={author}
+                  />
+                </div>
+              )}
+            </div>
+          ) : (
+            <div>
+              <LandingPage />
+            </div>
+          )}
         </div>
       </div>
-    </>
+    </div>
   );
 }
