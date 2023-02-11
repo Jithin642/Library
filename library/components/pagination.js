@@ -9,9 +9,9 @@ function Items({ currentItems1, currentItems2, currentItems3 }) {
     final_Arr.push({title:currentItems1[i],publish_year:currentItems2[i], author:currentItems3[i]})
   }
   return (
-    <div id="display">
-      <table className="ui striped table table-padding">
-        <thead>
+    <div id="display-table">
+      <table className="">
+        <thead className="table-head">
           <tr>
           <td className="table-width">Book Title</td>
           <td className="table-width">First Publish Year</td>
@@ -36,7 +36,6 @@ function Items({ currentItems1, currentItems2, currentItems3 }) {
 
 export default function PaginatedItems({ itemsPerPage, items1,items2,items3 }) {
   const [itemOffset, setItemOffset] = useState(0);
-  // if(items1!==items1) setItemOffset(0)
   const endOffset = itemOffset + itemsPerPage;
   console.log(`Loading items from ${itemOffset} to ${endOffset}`);
   const currentItems1 = items1.slice(itemOffset, endOffset);

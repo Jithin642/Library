@@ -72,7 +72,7 @@ export default function HomePage() {
 
   return (
     <div id="index">
-      <div className="header">What are you looking for at the library</div>
+      <div className="header">Library</div>
       <div className="home">
         <div className="column-1">
           <div className="sidebar">
@@ -113,13 +113,14 @@ export default function HomePage() {
         </div>
         <div className="column-2">
           <div className="row-1">
-            <div className="ui action input input-border">
+            <div className="ui action input input-border" width={900}>
               
               <input
                 type="text"
                 placeholder="Search by book or author name"
                 onChange={(e) => setUpdated(e.target.value)}
-                className="input-box"
+                 className="input-box"
+                
               />
               <button
                 className="ui icon button"
