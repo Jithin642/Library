@@ -18,6 +18,9 @@ export default function HomePage() {
   const handleClick = async () => {
     setActive(true);
     setIsLoading(true);
+
+    
+
     try {
       const response = await fetch(
         "https://openlibrary.org/search.json?author=" + updated + "&sort=new",
@@ -64,6 +67,7 @@ export default function HomePage() {
       setTitleArr(title_arr);
       setFirstPublishYeear(first_publish_year);
       setAuthor(author);
+      return 
     } catch (err) {
       console.log(err.message);
       setIsLoading(false);
